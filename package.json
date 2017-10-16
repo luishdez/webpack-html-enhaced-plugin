@@ -1,0 +1,21 @@
+{
+  "name": "webpack-html-enhaced-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "chokidar": "^1.7.0",
+    "globby": "^6.1.0",
+    "path": "^0.12.7"
+  }
+}
