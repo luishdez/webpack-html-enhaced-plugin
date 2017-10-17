@@ -1,12 +1,5 @@
-'use strict';
-
-var _prettyError = require('pretty-error');
-
-var _prettyError2 = _interopRequireDefault(_prettyError);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var prettyError = new _prettyError2.default();
+import PrettyError from 'pretty-error';
+let prettyError = new PrettyError();
 
 prettyError.withoutColors();
 prettyError.skipPackage(['html-plugin-evaluation']);
@@ -17,13 +10,13 @@ prettyError.skip(function (traceLine) {
 
 module.exports = function (err, context) {
   return {
-    toHtml: function toHtml() {
+    toHtml: function () {
       return 'Html Webpack Plugin:\n<pre>\n' + this.toString() + '</pre>';
     },
-    toJsonHtml: function toJsonHtml() {
+    toJsonHtml: function () {
       return JSON.stringify(this.toHtml());
     },
-    toString: function toString() {
+    toString: function () {
       return prettyError.render(err).replace(/webpack:\/\/\/\./g, context);
     }
   };

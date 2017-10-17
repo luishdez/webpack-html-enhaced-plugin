@@ -1,5 +1,3 @@
-'use strict';
-
 /* This loader renders the template with underscore if no other loader was found */
 var _ = require('lodash');
 var loaderUtils = require('loader-utils');
@@ -33,13 +31,20 @@ module.exports = function (source) {
   var template = _.template(source, _.defaults(options, { variable: 'data' }));
   // All templateVariables which should be available
   // @see HtmlWebpackPlugin.prototype.executeTemplate
-  var templateVariables = ['compilation', 'webpack', 'webpackConfig', 'htmlWebpackPlugin'];
-  return 'var _ = require(' + loaderUtils.stringifyRequest(this, require.resolve('lodash')) + ');' + 'module.exports = function (templateParams) {' +
-  // Declare the template variables in the outer scope of the
-  // lodash template to unwrap them
-  templateVariables.map(function (variableName) {
-    return 'var ' + variableName + ' = templateParams.' + variableName;
-  }).join(';') + ';' +
-  // Execute the lodash template
-  'return (' + template.source + ')();' + '}';
+  var templateVariables = [
+    'compilation',
+    'webpack',
+    'webpackConfig',
+    'htmlWebpackPlugin'
+  ];
+  return 'var _ = require(' + loaderUtils.stringifyRequest(this, require.resolve('lodash')) + ');' +
+    'module.exports = function (templateParams) {' +
+      // Declare the template variables in the outer scope of the
+      // lodash template to unwrap them
+      templateVariables.map(function (variableName) {
+        return 'var ' + variableName + ' = templateParams.' + variableName;
+      }).join(';') + ';' +
+      // Execute the lodash template
+      'return (' + template.source + ')();' +
+    '}';
 };

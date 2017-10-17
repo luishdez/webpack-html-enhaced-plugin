@@ -62,7 +62,7 @@ module.exports.dependency = function (chunks) {
  * @return {Array} The sorted list of chunks
  */
 module.exports.id = function (chunks) {
-  return chunks.sort(function orderEntryLast(a, b) {
+  return chunks.sort(function orderEntryLast (a, b) {
     if (a.entry !== b.entry) {
       return b.entry ? 1 : -1;
     } else {

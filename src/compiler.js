@@ -1,5 +1,3 @@
-'use strict';
-
 var Promise = require('bluebird');
 var _ = require('lodash');
 var path = require('path');
@@ -25,7 +23,12 @@ var SingleEntryPlugin = require('webpack/lib/SingleEntryPlugin');
  * }
  *
  */
-module.exports.compileTemplate = function compileTemplate(template, context, outputFilename, compilation) {
+module.exports.compileTemplate = function compileTemplate (
+  template,
+  context,
+  outputFilename,
+  compilation
+) {
 
   var outputOptions = {
     filename: outputFilename,
@@ -41,7 +44,13 @@ module.exports.compileTemplate = function compileTemplate(template, context, out
   var compilerName = getCompilerName(context, outputFilename);
   var childCompiler = compilation.createChildCompiler(compilerName, outputOptions);
   childCompiler.context = context;
-  childCompiler.apply(new NodeTemplatePlugin(outputOptions), new NodeTargetPlugin(), new LibraryTemplatePlugin('HTML_WEBPACK_PLUGIN_RESULT', 'var'), new SingleEntryPlugin(this.context, template), new LoaderTargetPlugin('node'));
+  childCompiler.apply(
+    new NodeTemplatePlugin(outputOptions),
+    new NodeTargetPlugin(),
+    new LibraryTemplatePlugin('HTML_WEBPACK_PLUGIN_RESULT', 'var'),
+    new SingleEntryPlugin(this.context, template),
+    new LoaderTargetPlugin('node')
+  );
 
   // Fix for "Uncaught TypeError: __webpack_require__(...) is not a function"
   // Hot module replacement requires that every child compiler has its own
@@ -91,7 +100,7 @@ module.exports.compileTemplate = function compileTemplate(template, context, out
   });
 };
 
-function getCompilerName(context, filename) {
+function getCompilerName (context, filename) {
   var absolutePath = path.resolve(context, filename);
   var relativePath = path.relative(context, absolutePath);
   return 'html-enhaced-plugin for "' + (absolutePath.length < relativePath.length ? absolutePath : relativePath) + '"';

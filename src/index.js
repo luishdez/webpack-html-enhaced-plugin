@@ -5,9 +5,9 @@ import chokidar from 'chokidar';
 import path from 'path';
 import globby from 'globby';
 import chalk from 'chalk';
-import chunkSorter from './lib/chunksorter.js';
-import childCompiler from './lib/compiler.js';
-import prettyError from './lib/errors.js';
+import chunkSorter from './src/chunksorter.js';
+import childCompiler from './src/compiler.js';
+import prettyError from './src/errors.js';
 
 function info(object) {
   console.log(chalk.bgBlue.white(object));
@@ -78,7 +78,7 @@ class WebpackHtmlWatchPlugin {
 
       this.watchQueue.set.forEach((path) => {
         let relativeTemplatePath = this.getRelativeTemplatePath(path);
-        let compilerPath = require.resolve('./lib/loader.js') + '!' + path;
+        let compilerPath = require.resolve('./src/loader.js') + '!' + path;
         let outputPath = this.options.templateNamer(relativeTemplatePath);
         let compilationPromise = childCompiler.compileTemplate(compilerPath, '', outputPath, compilation);
 
@@ -401,7 +401,7 @@ class WebpackHtmlWatchPlugin {
 
   getFullTemplatePath(template, context) {
     if (template.indexOf('!') === -1) {
-      template = require.resolve('./lib/loader.js') + '!' + path.resolve(context, template);
+      template = require.resolve('./src/loader.js') + '!' + path.resolve(context, template);
     }
 
     return template.replace(
