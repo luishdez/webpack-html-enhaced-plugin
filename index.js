@@ -35,29 +35,29 @@ class WebpackHtmlWatchPlugin {
       chunksSortMode: undefined
     }, options);
 
-    info(this.options.templates);
+    if(this.options.watch) {
+      this.watcher = chokidar.watch(this.options.templates, {
+        ignoreInitial: true
+      });
 
-    this.watcher = chokidar.watch(this.options.templates, {
-      ignoreInitial: true
-    });
-
-    this.watcher
-      .on('add', path => {
-        this.watchQueue.set.push(path);
-        this.compiler.run(function(){
-          info(`Add new file ${path}`)
-        });
-      })
-      .on('change', path => {
-        this.watchQueue.set.push(path);
-        this.compiler.run(function(){
-          info(`Change file ${path}`)
-        });
-      })
-      .on('unlink', path => {
-        this.watchQueue.unlink.push(path);
-        info(`Unlink file ${path}`)
-      })
+      this.watcher
+        .on('add', path => {
+          this.watchQueue.set.push(path);
+          this.compiler.run(function(){
+            info(`Add new file ${path}`)
+          });
+        })
+        .on('change', path => {
+          this.watchQueue.set.push(path);
+          this.compiler.run(function(){
+            info(`Change file ${path}`)
+          });
+        })
+        .on('unlink', path => {
+          this.watchQueue.unlink.push(path);
+          info(`Unlink file ${path}`)
+        })
+    }
 
     this.watchQueue = {
       set: globby.sync(this.options.templates),
