@@ -106,6 +106,7 @@ module.exports.manual = function (chunks, specifyChunks) {
  * Defines the default sorter.
  */
 module.exports.auto = module.exports.id;
+module.exports.auto = module.exports.dependency;
 
 // In webpack 2 the ids have been flipped.
 // Therefore the id sort doesn't work the same way as it did for webpack 1

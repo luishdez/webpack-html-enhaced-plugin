@@ -1,6 +1,6 @@
 # Webpack Html Enhaced Plugin [WIP]
 
-Fork of WebpackHtmlPlugin that works with multiple html templates.
+WebpackHtmlPlugin Fork that works with multiple html templates.
 
 ## Features
 
